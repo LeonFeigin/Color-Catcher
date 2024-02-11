@@ -1,8 +1,7 @@
 using UnityEngine;
-
 public class PlayerMovement : MonoBehaviour
 {
-    Vector3 move;
+    public Vector3 move;
     public float speed = 5f;
 
     public float RotationSpeed = 1;
@@ -12,9 +11,17 @@ public class PlayerMovement : MonoBehaviour
     private Quaternion initialRotation;
     private Quaternion flippedRotation;
     private float rotationProgress;
+    int num;
+
+    public bool mobile = true;
+    public bool CanPlay = true;
+    public GameObject deathScreen;
+
+    [HideInInspector] public Animator anim;
 
     void Start()
     {
+        anim = GetComponent<Animator>();
         initialRotation = startRotation = endRotation = transform.rotation ;
         flippedRotation = Quaternion.Euler( 0, 180, 0 ) * transform.rotation ;
         rotationProgress = 1 ;
@@ -24,7 +31,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        move.x = Input.GetAxis("Horizontal");
+        if(!mobile && CanPlay){
+            move.x = Input.GetAxis("Horizontal");
+        }
 
         transform.position = transform.position + move * speed * Time.deltaTime;
 
@@ -36,19 +45,28 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if(move.x > 0){}
+        if(move.x > 0){num = 2; anim.SetBool("IsRunning", true);}
+        if(move.x < 0){num =1; anim.SetBool("IsRunning", true);}
+        if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && !mobile){
+            anim.SetBool("IsRunning", false);
+        }
         TurnAroundLerp();
+
+        
+
+        
+        
     }
 
     void TurnAroundLerp()
     {
-        if( Input.GetKeyDown(KeyCode.A) && transform.rotation.y == 0)
+        if( num ==1 && transform.rotation.y == 0)
         {
             startRotation = initialRotation ;
             endRotation = flippedRotation ;
             rotationProgress = 1 - rotationProgress;
         }
-        else if( Input.GetKeyDown(KeyCode.D) && transform.rotation.y != 0)
+        else if( num==2 && transform.rotation.y == -1)
         {
             startRotation = flippedRotation ;
             endRotation = initialRotation ;
@@ -57,5 +75,12 @@ public class PlayerMovement : MonoBehaviour
         
         rotationProgress = Mathf.Clamp01( rotationProgress + RotationSpeed * Time.deltaTime ) ;
         transform.rotation = Quaternion.Slerp( startRotation, endRotation, rotationProgress ) ;
+    }
+
+    public void Died(){
+        move.x = 0;
+        CanPlay = false;
+        anim.SetBool("IsDed", true);
+        deathScreen.SetActive(true);
     }
 }

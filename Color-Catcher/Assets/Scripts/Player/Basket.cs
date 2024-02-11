@@ -1,23 +1,17 @@
 using UnityEngine;
+
 public class Basket : MonoBehaviour
 {
+    Stats stats;
     new SpriteRenderer renderer;
     void Start(){
+        stats = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<Stats>();
         renderer = GetComponent<SpriteRenderer>();
     }
 
-    public void ChangeBasketColor(int color){
-        if(color == 0){
-            renderer.color = new Color(255,0,0);
-        }
-        if(color == 1){
-            renderer.color = new Color(0,255,0);
-        }
-        if(color == 2){
-            renderer.color = new Color(255,255,0);
-        }
-        if(color == 3){
-            renderer.color = new Color(0,0,255);
-        }
+    void OnTriggerEnter2D(Collider2D collider){
+        renderer.color = collider.GetComponent<SpriteRenderer>().color;
+        Destroy(collider.gameObject);
+        stats.score++;
     }
 }

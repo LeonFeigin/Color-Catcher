@@ -10,20 +10,23 @@ public class BallDropping : MonoBehaviour
     public Transform blueHole;
 
     float time;
-    public float SpawnRate = 1f;
+    public float SpawnRate = 3f;
 
     Vector3 pos = new Vector3(0,0,-1);
+
+    Stats stats;
 
     // Start is called before the first frame update
     void Start()
     {
         time = Time.time;
+        stats = GetComponent<Stats>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Time.time > time + SpawnRate){
+        if(Time.time > time + (SpawnRate - stats.difficulty) && stats.pm.CanPlay){
             summonBall();
         }
     }
