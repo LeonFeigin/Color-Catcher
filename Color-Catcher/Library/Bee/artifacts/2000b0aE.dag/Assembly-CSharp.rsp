@@ -356,12 +356,15 @@
 -analyzer:"E:/Program Files/Unity/Hub/Editor/2022.3.18f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"E:/Program Files/Unity/Hub/Editor/2022.3.18f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scripts/Game/Ball Dropping.cs"
+"Assets/Scripts/Game/ball.cs"
 "Assets/Scripts/Game/Death.cs"
 "Assets/Scripts/Game/Ground.cs"
 "Assets/Scripts/Game/Stats.cs"
 "Assets/Scripts/Player/Basket.cs"
 "Assets/Scripts/Player/MobileMove.cs"
 "Assets/Scripts/Player/PlayerMovement.cs"
+"Assets/Scripts/UI/Main Menu/Main Menu.cs"
+"Assets/Scripts/UI/settings/Settings.cs"
 -langversion:9.0
 
 /deterministic

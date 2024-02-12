@@ -13,5 +13,6 @@ public class Basket : MonoBehaviour
         renderer.color = collider.GetComponent<SpriteRenderer>().color;
         Destroy(collider.gameObject);
         stats.score++;
+        stats.difficultyScore++;
     }
 }
