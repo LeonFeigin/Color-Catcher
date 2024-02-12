@@ -4,6 +4,7 @@ public class Basket : MonoBehaviour
 {
     Stats stats;
     new SpriteRenderer renderer;
+    public AudioSource audioSource;
     void Start(){
         stats = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<Stats>();
         renderer = GetComponent<SpriteRenderer>();
@@ -14,5 +15,6 @@ public class Basket : MonoBehaviour
         Destroy(collider.gameObject);
         stats.score++;
         stats.difficultyScore++;
+        audioSource.Play();
     }
 }

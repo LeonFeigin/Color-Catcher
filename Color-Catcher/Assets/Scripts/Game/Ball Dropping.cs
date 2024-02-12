@@ -26,6 +26,9 @@ public class BallDropping : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!stats.pm.CanPlay){
+            time = Time.time;
+        }
         if(Time.time > time + (SpawnRate - stats.difficulty) && stats.pm.CanPlay){
             summonBall();
         }
